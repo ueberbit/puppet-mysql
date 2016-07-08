@@ -1,7 +1,7 @@
 class Mysql < Formula
   homepage "https://dev.mysql.com/doc/refman/5.6/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.27.tar.gz"
-  sha256 "8356bba23f3f6c0c2d4806110c41d1c4d6a4b9c50825e11c5be4bbee2b20b71d"
+  url "https://cdn.mysql.com/Downloads/MySQL-5.6/mysql-5.6.31.tar.gz"
+  sha256 "6df1389bbf899025aee6be0f4a12b8b0135e6de7db83e3ea20201ad3633ba424"
 
   option :universal
   option "with-tests", "Build with unit tests"
