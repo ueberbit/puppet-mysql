@@ -9,4 +9,6 @@ log-error=<%= "#{@logdir}/error.log" %>
 bind-address=<%= @host %>
 port=<%= @port %>
 socket=<%= @socket %>
-max_allowed_packet=1073741824
+max_allowed_packet=128M
+max_connections=250
+table_open_cache=250
