@@ -37,13 +37,17 @@ class mysql::config(
     "${configdir}/my.cnf":
       content => template('mysql/my.cnf.erb'),
       notify  => Service['mysql'] ;
+
+    "${globalconfigprefix}/etc/my-default.cnf":
+      ensure => link,
+      target => "${configdir}/my.cnf"
   }
 
   ->
   exec { 'init-mysql-db':
     command  => "${bindir}/mysql_install_db \
       --verbose \
-      --basedir=${globalconfigprefix} \
+      --basedir=${globalconfigprefix}/opt/mysql \
       --datadir=${datadir} \
       --tmpdir=/tmp",
     creates  => "${datadir}/mysql",

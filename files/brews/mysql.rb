@@ -1,8 +1,8 @@
 class Mysql < Formula
   desc "Open source relational database management system"
   homepage "https://dev.mysql.com/doc/refman/5.6/en/"
-  url "https://dev.mysql.com/Downloads/MySQL-5.6/mysql-5.6.33.tar.gz"
-  sha256 "60776ec27d78b59f597e71738c5bcdea64dcba33c36fede320d5930320b1fef0"
+  url "https://dev.mysql.com/Downloads/MySQL-5.6/mysql-5.6.37.tar.gz"
+  sha256 "59c4ed39047279ddccd1bed9e247830d2bfad27d56dc2eb48d0b5695c94a1fbd"
 
   option :universal
   option "with-tests", "Build with unit tests"
@@ -36,10 +36,6 @@ class Mysql < Formula
     inreplace "cmake/libutils.cmake",
       "COMMAND /usr/bin/libtool -static -o ${TARGET_LOCATION}",
       "COMMAND libtool -static -o ${TARGET_LOCATION}"
-
-    # Build without compiler or CPU specific optimization flags to facilitate
-    # compilation of gems and other software that queries `mysql-config`.
-    ENV.minimal_optimization
 
     # -DINSTALL_* are relative to prefix
     args = %W[
@@ -104,27 +100,12 @@ class Mysql < Formula
     # Link the setup script into bin
     bin.install_symlink prefix/"scripts/mysql_install_db"
 
-    # Fix up the control script and link into bin
-    inreplace "#{prefix}/support-files/mysql.server" do |s|
-      s.gsub!(/^(PATH=".*)(")/, "\\1:#{HOMEBREW_PREFIX}/bin\\2")
-      # pidof can be replaced with pgrep from proctools on Mountain Lion
-      s.gsub!(/pidof/, "pgrep") if MacOS.version >= :mountain_lion
-    end
-
+    # Fix up the control script and link into bin.
+    inreplace "#{prefix}/support-files/mysql.server", /^(PATH=".*)(")/, "\\1:#{HOMEBREW_PREFIX}/bin\\2"
     bin.install_symlink prefix/"support-files/mysql.server"
 
     libexec.install bin/"mysqlaccess"
     libexec.install bin/"mysqlaccess.conf"
-  end
-
-  def post_install
-    # Make sure the datadir exists
-    datadir.mkpath
-    unless File.exist? "#{datadir}/mysql/user.frm"
-      ENV["TMPDIR"] = nil
-      system "#{bin}/mysql_install_db", "--verbose", "--user=#{ENV["USER"]}",
-        "--basedir=#{prefix}", "--datadir=#{datadir}", "--tmpdir=/tmp"
-    end
   end
 
   def caveats; <<-EOS.undent
