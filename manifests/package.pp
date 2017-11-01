@@ -11,7 +11,7 @@ class mysql::package(
   }
 
   case $::operatingsystem {
-    Darwin: {
+    "Darwin": {
       require homebrew
 
       homebrew::formula { 'mysql': }

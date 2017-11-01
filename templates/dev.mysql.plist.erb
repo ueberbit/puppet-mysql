@@ -11,16 +11,16 @@
       <string>A pretty okay relational database.</string>
 
       <key>Port</key>
-      <integer><%= @port %></integer>
+      <integer><%= scope.lookupvar "mysql::config::port" %></integer>
 
       <key>Socket</key>
-      <string><%= @socket %></string>
+      <string><%= scope.lookupvar "mysql::config::socket" %></string>
     </dict>
 
     <key>ProgramArguments</key>
     <array>
-      <string><%= @executable %></string>
-      <string>--defaults-file=<%= "#{@configdir}/my.cnf" %></string>
+      <string><%= scope.lookupvar "mysql::config::executable" %></string>
+      <string>--defaults-file=<%= scope.lookupvar "mysql::config::configdir" %>/my.cnf</string>
     </array>
 
     <key>RunAtLoad</key>
@@ -33,15 +33,15 @@
     <integer>1</integer>
 
     <key>UserName</key>
-    <string><%= @user %></string>
+    <string><%= scope.lookupvar "mysql::config::user" %></string>
 
     <key>WorkingDirectory</key>
-    <string><%= @datadir %></string>
+    <string><%= scope.lookupvar "mysql::config::datadir" %></string>
 
     <key>StandardErrorPath</key>
-    <string><%= @logdir %>/console.log</string>
+    <string><%= scope.lookupvar "mysql::config::logdir" %>/console.log</string>
 
     <key>StandardOutPath</key>
-    <string><%= @logdir %>/console.log</string>
+    <string><%= scope.lookupvar "mysql::config::logdir" %>/console.log</string>
   </dict>
 </plist>
