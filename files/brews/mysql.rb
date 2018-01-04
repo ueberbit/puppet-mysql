@@ -94,9 +94,6 @@ class Mysql < Formula
     # See: https://github.com/Homebrew/homebrew/issues/4975
     rm_rf prefix/"data"
 
-    # Link the setup script into bin
-    bin.install_symlink prefix/"scripts/mysql_install_db"
-
     # Fix up the control script and link into bin.
     inreplace "#{prefix}/support-files/mysql.server", /^(PATH=".*)(")/, "\\1:#{HOMEBREW_PREFIX}/bin\\2"
     bin.install_symlink prefix/"support-files/mysql.server"

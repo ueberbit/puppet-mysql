@@ -45,8 +45,9 @@ class mysql::config(
 
   ->
   exec { 'init-mysql-db':
-    command  => "${bindir}/mysql_install_db \
+    command  => "${bindir}/mysqld \
       --verbose \
+      --initialize-insecure \
       --basedir=${globalconfigprefix}/opt/mysql \
       --datadir=${datadir} \
       --tmpdir=/tmp",
