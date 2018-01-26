@@ -12,3 +12,5 @@ socket=<%= @socket %>
 max_allowed_packet=128M
 max_connections=250
 table_open_cache=250
+
+!includedir /Users/<%= scope.lookupvar "::boxen_user" %>/.boxen/config/mysql

@@ -26,11 +26,14 @@ class mysql::config(
     owner  => $user,
   }
 
+  $userconfdir = "/Users/${::boxen_user}/.boxen/config/mysql"
+
   file {
     [
       $configdir,
       $datadir,
       $logdir,
+      $userconfdir
     ]:
       ensure => directory ;
 
