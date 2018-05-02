@@ -107,7 +107,6 @@ class Mysql < Formula
       To connect:
           mysql -uroot
       EOS
-    end
     s
   end
 
