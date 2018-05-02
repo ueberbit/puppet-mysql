@@ -14,4 +14,4 @@ mysql::port: "13306"
 mysql::socket: "%{::boxen::config::datadir}/mysql/socket"
 
 mysql::package: boxen/brews/mysql
-mysql::version: 5.7.20
+mysql::version: 5.7.22

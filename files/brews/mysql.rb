@@ -1,9 +1,8 @@
 class Mysql < Formula
   desc "Open source relational database management system"
   homepage "https://dev.mysql.com/doc/refman/5.7/en/"
-  url "https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.20.tar.gz"
-  sha256 "260582844ac18222ce2826f48b6c7ca387990b19ddb88331af26738b394e42a4"
-
+  url "https://cdn.mysql.com/Downloads/MySQL-5.7/mysql-boost-5.7.22.tar.gz"
+  sha256 "5b2a61700af7c99f5630a7dfdb099af9283c3029843cddd9e123bcdbcc4aad03"
 
   option "with-test", "Build with unit tests"
   option "with-embedded", "Build the embedded server"
@@ -32,12 +31,6 @@ class Mysql < Formula
   end
 
   def install
-    # Don't hard-code the libtool path. See:
-    # https://github.com/Homebrew/legacy-homebrew/issues/20185
-    inreplace "cmake/libutils.cmake",
-      "COMMAND /usr/bin/libtool -static -o ${TARGET_LOCATION}",
-      "COMMAND libtool -static -o ${TARGET_LOCATION}"
-
     # -DINSTALL_* are relative to prefix
     args = %W[
       -DCMAKE_INSTALL_PREFIX=#{prefix}
